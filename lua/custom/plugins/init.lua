@@ -3,7 +3,11 @@
 --
 -- See the kickstart.nvim README for more information
 
-vim.opt.shell = 'powershell'
+if package.config:sub(1, 1) == '\\' then
+  vim.opt.shell = 'powershell'
+else
+  vim.opt.shell = 'zsh'
+end
 
 return {
   -- {
