@@ -56,14 +56,27 @@ return {
     end,
   },
   {
-    'nvim-tree/nvim-tree.lua',
+    'nvim-neo-tree/neo-tree.nvim',
+    version = '*',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
+      'MunifTanjim/nui.nvim',
+    },
     config = function()
-      require('nvim-tree').setup {
-        disable_netrw = true,
-        hijack_netrw = true,
-        view = {
-          width = 30,
-          side = 'left',
+      require('neo-tree').setup {
+        filesystem = {
+          filtered_items = { visible = true, hide_dotfiles = false, hide_gitignored = false, hide_hidden = false },
+        },
+        window = {
+          mappings = {
+            ['t'] = 'open_tab_drop',
+            ['cr'] = 'open_drop',
+          },
+        },
+        source_selector = {
+          winbar = true,
+          status_line = true,
         },
       }
     end,
