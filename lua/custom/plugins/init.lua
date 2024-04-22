@@ -75,7 +75,7 @@ return {
         window = {
           mappings = {
             ['t'] = 'open_tab_drop',
-            ['cr'] = 'open_drop',
+            ['<cr>'] = { 'open_drop', config = { expand_nested_files = true } },
           },
         },
         source_selector = {
