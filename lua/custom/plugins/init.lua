@@ -10,9 +10,9 @@ else
 end
 
 return {
-  -- {
-  --   'github/copilot.vim',
-  -- },
+  {
+    'github/copilot.vim',
+  },
 
   {
     'rebelot/kanagawa.nvim',
@@ -83,6 +83,7 @@ return {
           status_line = true,
         },
       }
+      vim.keymap.set('n', '<leader>nt', '<cmd>:Neotree toggle<cr>', { desc = 'Toggle NeoTree' })
     end,
   },
 }
