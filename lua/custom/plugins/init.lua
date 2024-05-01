@@ -10,9 +10,9 @@ else
 end
 
 return {
-  {
-    'github/copilot.vim',
-  },
+  -- {
+  --   'github/copilot.vim',
+  -- },
 
   {
     'rebelot/kanagawa.nvim',
