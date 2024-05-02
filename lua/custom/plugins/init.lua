@@ -9,6 +9,10 @@ else
   vim.opt.shell = 'zsh'
 end
 
+if vim.g.vscode then
+  return
+end
+
 return {
   -- {
   --   'github/copilot.vim',
@@ -25,6 +29,7 @@ return {
       vim.cmd.colorscheme 'kanagawa-dragon'
     end,
     lazy = false,
+    priority = 1001,
   },
   {
     'NvChad/nvim-colorizer.lua',
