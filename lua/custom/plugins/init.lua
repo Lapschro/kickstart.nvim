@@ -13,6 +13,10 @@ if vim.g.vscode then
   return
 end
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.o.termguicolors = true
+
 return {
   -- {
   --   'github/copilot.vim',
@@ -65,7 +69,92 @@ return {
     end,
   },
   {
-    'nvim-neo-tree/neo-tree.nvim',
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    config = function()
+      local bufferline = require 'bufferline'
+      bufferline.setup {
+        options = {
+          themable = true, -- whether or not bufferline highlights can be overridden externally
+          -- style_preset = preset,
+          get_element_icon = nil,
+          show_duplicate_prefix = true,
+          duplicates_across_groups = true,
+          auto_toggle_bufferline = true,
+          move_wraps_at_ends = false,
+          groups = { items = {}, options = { toggle_hidden_on_enter = true } },
+          mode = 'buffers', -- set to "tabs" to only show tabpages instead
+          numbers = 'none', -- can be "none" | "ordinal" | "buffer_id" | "both" | function
+          right_mouse_command = 'vert sbuffer %d', -- can be a string | function, see "Mouse actions"
+          left_mouse_command = 'buffer %d', -- can be a string | function, see "Mouse actions"
+          middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+          indicator = {
+            style = 'icon', -- can also be 'underline'|'none',
+          },
+          --- name_formatter can be used to change the buffer's label in the bufferline.
+          --- Please note some names can/will break the
+          --- bufferline so use this at your discretion knowing that it has
+          --- some limitations that will *NOT* be fixed.
+          max_name_length = 18,
+          max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+          truncate_names = true, -- whether or not tab names should be truncated
+          tab_size = 18,
+          diagnostics = 'nvim_lsp',
+          diagnostics_update_in_insert = false,
+          offsets = {
+            {
+              filetype = 'undotree',
+              text = 'Undotree',
+              highlight = 'PanelHeading',
+              padding = 1,
+            },
+            {
+              filetype = 'NvimTree',
+              text = 'Explorer',
+              highlight = 'PanelHeading',
+              padding = 1,
+            },
+            {
+              filetype = 'DiffviewFiles',
+              text = 'Diff View',
+              highlight = 'PanelHeading',
+              padding = 1,
+            },
+            {
+              filetype = 'flutterToolsOutline',
+              text = 'Flutter Outline',
+              highlight = 'PanelHeading',
+            },
+            {
+              filetype = 'lazy',
+              text = 'Lazy',
+              highlight = 'PanelHeading',
+              padding = 1,
+            },
+          },
+          color_icons = true, -- whether or not to add the filetype icon highlights
+          show_close_icon = false,
+          show_tab_indicators = true,
+          persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+          -- can also be a table containing 2 custom separators
+          -- [focused and unfocused]. eg: { '|', '|' }
+          separator_style = 'thin',
+          enforce_regular_tabs = false,
+          always_show_bufferline = false,
+          hover = {
+            enabled = false, -- requires nvim 0.8+
+            delay = 200,
+            reveal = { 'close' },
+          },
+          sort_by = 'id',
+          debug = { logging = false },
+        },
+      }
+    end,
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
     version = '*',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -73,22 +162,8 @@ return {
       'MunifTanjim/nui.nvim',
     },
     config = function()
-      require('neo-tree').setup {
-        filesystem = {
-          filtered_items = { visible = true, hide_dotfiles = false, hide_gitignored = false, hide_hidden = false },
-        },
-        window = {
-          mappings = {
-            ['t'] = 'open_tab_drop',
-            ['<cr>'] = { 'open_drop', config = { expand_nested_files = true } },
-          },
-        },
-        source_selector = {
-          winbar = true,
-          status_line = true,
-        },
-      }
-      vim.keymap.set('n', '<leader>nt', '<cmd>:Neotree toggle<cr>', { desc = 'Toggle NeoTree' })
+      require('nvim-tree').setup {}
+      vim.keymap.set('n', '<leader>nt', '<cmd>:NvimTreeToggle<cr>', { desc = 'Toggle NeoTree' })
     end,
   },
 }
