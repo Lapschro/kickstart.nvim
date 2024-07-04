@@ -9,19 +9,20 @@ else
   vim.opt.shell = 'zsh'
 end
 
-if vim.g.vscode then
-  return
-end
+-- if vim.g.vscode then
+--   return
+-- end
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.o.termguicolors = true
+if not vim.g.vscode then
+  vim.g.loaded_netrw = 1
+  vim.g.loaded_netrwPlugin = 1
+  vim.o.termguicolors = true
+end
 
 return {
   -- {
   --   'github/copilot.vim',
   -- },
-
   {
     'rebelot/kanagawa.nvim',
     opts = function()
@@ -162,7 +163,11 @@ return {
       'MunifTanjim/nui.nvim',
     },
     config = function()
-      require('nvim-tree').setup {}
+      require('nvim-tree').setup {
+        filters = {
+          git_ignored = false,
+        },
+      }
       vim.keymap.set('n', '<leader>nt', '<cmd>:NvimTreeToggle<cr>', { desc = 'Toggle NeoTree' })
     end,
   },
