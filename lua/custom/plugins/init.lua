@@ -4,7 +4,8 @@
 -- See the kickstart.nvim README for more information
 
 if package.config:sub(1, 1) == '\\' then
-  vim.opt.shell = 'powershell'
+  --vim.opt.shell = 'cmd.exe'
+  vim.opt.shell = 'pwsh'
 else
   vim.opt.shell = 'zsh'
 end
@@ -27,11 +28,13 @@ return {
     'rebelot/kanagawa.nvim',
     opts = function()
       return {
-        terminal_colors = false,
+        terminal_colors = true,
+        transparent = false,
+        theme = 'dragon',
       }
     end,
     init = function()
-      vim.cmd.colorscheme 'kanagawa-dragon'
+      vim.cmd 'colorscheme kanagawa-dragon'
     end,
     lazy = false,
     priority = 1001,
@@ -169,6 +172,15 @@ return {
         },
       }
       vim.keymap.set('n', '<leader>nt', '<cmd>:NvimTreeToggle<cr>', { desc = 'Toggle NeoTree' })
+    end,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter-context',
+    config = function()
+      require('treesitter-context').setup {
+        mode = 'topline',
+        max_lines = 5,
+      }
     end,
   },
 }
