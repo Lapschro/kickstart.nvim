@@ -117,8 +117,22 @@ return {
         ui.close()
       end
 
+      function Debugger_path()
+        if package.config:sub(1, 1) == '\\' then
+          return 'G:\\Programas\\vscode-js-debug'
+        else
+          local file = io.open('.config', 'r')
+          local path = '/Users/gokita/Development/vscode-js-debug'
+          if file ~= nil then
+            local content = file.read(string)
+            path = content
+          end
+          return path
+        end
+      end
+
       require('dap-vscode-js').setup {
-        debugger_path = 'G:\\Programas\\vscode-js-debug',
+        debugger_path = Debugger_path(),
         adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' },
         node_path = 'node',
       }
