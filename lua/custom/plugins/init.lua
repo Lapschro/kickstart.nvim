@@ -13,6 +13,8 @@ end
 -- if vim.g.vscode then
 --   return
 -- end
+--
+vim.wo.wrap = false
 
 if not vim.g.vscode then
   vim.g.loaded_netrw = 1
