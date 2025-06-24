@@ -35,11 +35,11 @@ return {
         theme = 'dragon',
       }
     end,
-    init = function()
+    config = function()
       vim.cmd 'colorscheme kanagawa-dragon'
     end,
     lazy = false,
-    priority = 1001,
+    priority = 999,
   },
   {
     'NvChad/nvim-colorizer.lua',

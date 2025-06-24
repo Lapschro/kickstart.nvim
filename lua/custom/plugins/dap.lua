@@ -124,7 +124,7 @@ return {
           local file = io.open('.config', 'r')
           local path = '/Users/gokita/Development/vscode-js-debug'
           if file ~= nil then
-            local content = file.read(string)
+            local content = file:read '*all'
             path = content
           end
           return path
