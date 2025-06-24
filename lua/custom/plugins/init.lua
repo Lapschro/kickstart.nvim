@@ -22,6 +22,10 @@ if not vim.g.vscode then
   vim.o.termguicolors = true
 end
 
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
+
 return {
   -- {
   --   'github/copilot.vim',
