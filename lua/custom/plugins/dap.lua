@@ -92,30 +92,13 @@ return {
         'javascriptreact',
       }
 
-      if vim.fn.filereadable '.vscode/launch.json' then
-        require('dap.ext.vscode').load_launchjs(nil, {
-          ['pwa-node'] = js_based_languages,
-          ['chrome'] = js_based_languages,
-          ['pwa-chrome'] = js_based_languages,
-          ['node'] = js_based_languages,
-        })
-      end
+      dap.listeners.before.attach.dapui_config = function() ui.open() end
 
-      dap.listeners.before.attach.dapui_config = function()
-        ui.open()
-      end
+      dap.listeners.before.launch.dapui_config = function() ui.open() end
 
-      dap.listeners.before.launch.dapui_config = function()
-        ui.open()
-      end
+      dap.listeners.before.event_terminated.dapui_config = function() ui.close() end
 
-      dap.listeners.before.event_terminated.dapui_config = function()
-        ui.close()
-      end
-
-      dap.listeners.before.event_exited.dapui_config = function()
-        ui.close()
-      end
+      dap.listeners.before.event_exited.dapui_config = function() ui.close() end
 
       function Debugger_path()
         if package.config:sub(1, 1) == '\\' then
