@@ -5,7 +5,9 @@ local state = {
   },
 }
 
-local function open_floating_window(opts)
+vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
+
+function open_floating_window(opts)
   opts = opts or {}
   local width = vim.o.columns
   local height = vim.o.lines
@@ -41,9 +43,7 @@ end
 local toggle_terminal = function()
   if not vim.api.nvim_win_is_valid(state.floating.win) then
     state.floating = open_floating_window { buf = state.floating.buf }
-    if vim.bo[state.floating.buf].buftype ~= 'terminal' then
-      vim.cmd.term()
-    end
+    if vim.bo[state.floating.buf].buftype ~= 'terminal' then vim.cmd.term() end
   else
     vim.api.nvim_win_hide(state.floating.win)
   end
