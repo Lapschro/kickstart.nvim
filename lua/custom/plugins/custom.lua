@@ -27,6 +27,9 @@ end
 
 vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
+require 'kickstart.plugins.autopairs'
+require 'kickstart.plugins.neo-tree'
+
 return {
   -- {
   --   'github/copilot.vim',
