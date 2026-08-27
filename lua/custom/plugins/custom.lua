@@ -30,6 +30,20 @@ vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 require 'kickstart.plugins.autopairs'
 require 'kickstart.plugins.neo-tree'
 
+vim.pack.add {
+'https://github.com/rebelot/kanagawa.nvim',
+}
+
+require('kanagawa').setup(
+  {
+        terminal_colors = true,
+        transparent = false,
+        theme = 'dragon',
+  }
+)
+
+vim.cmd 'colorscheme kanagawa-dragon'
+
 return {
   -- {
   --   'github/copilot.vim',
