@@ -30,6 +30,14 @@ vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 require 'kickstart.plugins.autopairs'
 require 'kickstart.plugins.neo-tree'
 
+require('neo-tree').setup({
+  filesystem = {
+    filtered_items = {
+      visible=true
+    }
+  }
+})
+
 vim.pack.add {
 'https://github.com/rebelot/kanagawa.nvim',
 }
