@@ -44,64 +44,54 @@ require('kanagawa').setup(
 
 vim.cmd 'colorscheme kanagawa-dragon'
 
-return {
-  -- {
-  --   'github/copilot.vim',
-  -- },
-  {
-    'rebelot/kanagawa.nvim',
-    opts = function()
-      return {
-        terminal_colors = true,
-        transparent = false,
-        theme = 'dragon',
-      }
-    end,
-    config = function() vim.cmd 'colorscheme kanagawa-dragon' end,
-    lazy = false,
-    priority = 999,
+vim.pack.add {
+  'https://github.com/NvChad/nvim-colorizer.lua',
+}
+
+require('colorizer').setup {
+  filetypes = { '*' },
+  user_default_options = {
+    RGB = true, -- #RGB hex codes
+    RRGGBB = true, -- #RRGGBB hex codes
+    names = true, -- "Name" codes like Blue or blue
+    RRGGBBAA = true, -- #RRGGBBAA hex codes
+    AARRGGBB = false, -- 0xAARRGGBB hex codes
+    rgb_fn = true, -- CSS rgb() and rgba() functions
+    hsl_fn = true, -- CSS hsl() and hsla() functions
+    css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+    css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+    -- Available modes for `mode`: foreground, background,  virtualtext
+    mode = 'background', -- Set the display mode.
+    -- Available methods are false / true / "normal" / "lsp" / "both"
+    method = 'both',
+    -- True is same as normal
+    tailwind = true, -- Enable tailwind colors
+    -- parsers can contain values used in |user_default_options|
+    sass = { enable = true, parsers = { 'css' } }, -- Enable sass colors
+    virtualtext = '■',
+    -- update color values even if buffer is not focused
+    -- example use: cmp_menu, cmp_docs
+    always_update = true,
   },
+  -- all the sub-options of filetypes apply to buftypes
+  buftypes = {},
+}
+
+vim.pack.add{'https://github.com/nvim-treesitter/nvim-treesitter-context'}
+require('treesitter-context').setup(
   {
-    'NvChad/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup {
-        filetypes = { '*' },
-        user_default_options = {
-          RGB = true, -- #RGB hex codes
-          RRGGBB = true, -- #RRGGBB hex codes
-          names = true, -- "Name" codes like Blue or blue
-          RRGGBBAA = true, -- #RRGGBBAA hex codes
-          AARRGGBB = false, -- 0xAARRGGBB hex codes
-          rgb_fn = true, -- CSS rgb() and rgba() functions
-          hsl_fn = true, -- CSS hsl() and hsla() functions
-          css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-          css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-          -- Available modes for `mode`: foreground, background,  virtualtext
-          mode = 'background', -- Set the display mode.
-          -- Available methods are false / true / "normal" / "lsp" / "both"
-          method = 'both',
-          -- True is same as normal
-          tailwind = true, -- Enable tailwind colors
-          -- parsers can contain values used in |user_default_options|
-          sass = { enable = true, parsers = { 'css' } }, -- Enable sass colors
-          virtualtext = '■',
-          -- update color values even if buffer is not focused
-          -- example use: cmp_menu, cmp_docs
-          always_update = true,
-        },
-        -- all the sub-options of filetypes apply to buftypes
-        buftypes = {},
-      }
-    end,
-  },
-  {
-    'akinsho/bufferline.nvim',
-    version = '*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    config = function()
-      local bufferline = require 'bufferline'
-      bufferline.setup {
-        options = {
+    mode = "topline",
+    max_lines = 5
+  }
+)
+
+vim.pack.add{
+  'https://github.com/nvim-tree/nvim-web-devicons',
+  'https://github.com/akinsho/bufferline.nvim'
+}
+
+require('bufferline').setup {
+options = {
           themable = true, -- whether or not bufferline highlights can be overridden externally
           -- style_preset = preset,
           get_element_icon = nil,
@@ -176,33 +166,10 @@ return {
           sort_by = 'id',
           debug = { logging = false },
         },
-      }
-    end,
-  },
-  {
-    'nvim-tree/nvim-tree.lua',
-    version = '*',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons', -- not strictly required, but recommended
-      'MunifTanjim/nui.nvim',
-    },
-    config = function()
-      require('nvim-tree').setup {
-        filters = {
-          git_ignored = false,
-        },
-      }
-      vim.keymap.set('n', '<leader>nt', '<cmd>:NvimTreeToggle<cr>', { desc = 'Toggle NeoTree' })
-    end,
-  },
-  {
-    'nvim-treesitter/nvim-treesitter-context',
-    config = function()
-      require('treesitter-context').setup {
-        mode = 'topline',
-        max_lines = 5,
-      }
-    end,
-  },
+}
+
+return {
+  -- {
+  --   'github/copilot.vim',
+  -- },
 }
